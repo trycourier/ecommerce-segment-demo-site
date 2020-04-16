@@ -16,7 +16,7 @@
     "postcss-import": "^12.0.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
-    "react-feather": "^2.0.3",
+    "react-feather": "^2.0.4",
     "tailwindcss": "^1.2.0"
   },
   "devDependencies": {
