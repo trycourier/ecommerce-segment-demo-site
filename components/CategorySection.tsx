@@ -1,7 +1,10 @@
 import Button from "./Button";
-import { Item } from "./Item";
+import { InstantSearch, Configure } from "react-instantsearch-dom";
+import { RefinementList, Hits } from "./Hits";
+import { searchClient } from "../utils/algolia";
 
-const CategorySection = ({ title, description, category }) => {
+const CategorySection = ({ facets = {}, category, title, description }) => {
+  const keys = Object.keys(facets);
   return (
     <div className="w-full py-16 border-b">
       <div className="mb-16 text-center">
@@ -10,11 +13,15 @@ const CategorySection = ({ title, description, category }) => {
         <Button>Shop All {category}</Button>
       </div>
       <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
-          {[0, 1, 2, 3, 4, 5].map(() => (
-            <Item />
+        <InstantSearch searchClient={searchClient} indexName="dev_ecommerce">
+          <Configure hitsPerPage={6} />
+          {keys.map((key) => (
+            <RefinementList attribute={key} defaultRefinement={[facets[key]]} />
           ))}
-        </div>
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+            <Hits />
+          </div>
+        </InstantSearch>
       </div>
     </div>
   );

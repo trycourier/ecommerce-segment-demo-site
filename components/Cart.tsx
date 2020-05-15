@@ -1,27 +1,23 @@
 import { ShoppingCart } from "react-feather";
-import { useState } from "react";
-import { useInterval } from "./useInterval";
-import { getCart } from "../utils/cart";
+import { cartState } from "../utils/states";
+import { useRecoilState } from "recoil";
 
-const Cart = () => {
-  let [cart, setCart] = useState({});
+const Cart = ({ onClick }) => {
+  const [cart, setCart] = useRecoilState(cartState);
 
-  // update cart every 200 mil
-  useInterval(() => {
-    setCart(getCart());
-  }, 200);
+  const num = Object.keys(cart).length;
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div
+      className="relative flex items-center justify-center"
+      onClick={onClick}
+    >
       <ShoppingCart size={30} />
       <span
         className="text-xs absolute"
         style={{ fontSize: "10px", marginLeft: "3px", marginTop: "-1px" }}
       >
-        {Object.keys(cart).reduce((val, key) => {
-          val = val + cart[key];
-          return val;
-        }, 0)}
+        {num}
       </span>
     </div>
   );

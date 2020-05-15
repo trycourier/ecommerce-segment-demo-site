@@ -15,7 +15,7 @@ export const searchClient = {
       },
       body: JSON.stringify({
         requests,
-        email: "strafe.x754@gmailx.com", // @TODO: comment this out
+        // email: "strafe.x754@gmailx.com", // @TODO: comment this out
       }),
     }).then((res) => res.json());
   },

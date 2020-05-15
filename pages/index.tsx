@@ -1,10 +1,8 @@
-import { config } from "../utils/config";
 import AppLayout from "../components/layouts/AppLayout";
 import Button from "../components/Button";
-import { addToCart } from "../utils/cart";
 import { CategorySection } from "../components/CategorySection";
 
-const HERO_IMAGE = "https://source.unsplash.com/user/harpersunday/1600x900";
+const HERO_IMAGE = "https://source.unsplash.com/1600x900/weekly?sneakers,sick";
 
 const IndexPage = () => {
   return (
@@ -32,14 +30,16 @@ const IndexPage = () => {
         </div>
       </div>
       <CategorySection
-        title="Skin first."
-        description="Our skincare essentials are designed to make you look and feel your glowy, dewy best before you even think about makeup."
-        category="skincare"
+        title="Nike?"
+        category="shoes"
+        description="Just do it."
+        facets={{ brand: "Nike", type: "shoes" }}
       />
       <CategorySection
-        title="Makeup second."
-        description="Products that give you options but never cover you up, turn you into someone else, or over-complicate your routine. Because beauty should make you feel good."
-        category="makeup"
+        title="Or adidas?"
+        category="shoes"
+        description="Impossible is nothing/"
+        facets={{ brand: "adidas", type: "shoes" }}
       />
     </AppLayout>
   );

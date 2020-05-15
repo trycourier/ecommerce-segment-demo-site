@@ -3,43 +3,36 @@ import Link from "next/link";
 import Cart from "./Cart";
 
 const NAV_ITEMS = [
-  { name: "Shop All" },
-  { name: "Skincare" },
-  { name: "Makeup" },
-  { name: "Body" },
-  { name: "Fragrance" },
+  { name: "Shop All", value: "all" },
+  { name: "Men's", value: "men" },
+  { name: "Women's", value: "women" },
+  { name: "Clothing", value: "clothing" },
 ];
 
-const Header = () => {
-  const [all, ...rest] = NAV_ITEMS;
-
+const Header = ({ onCartClick }) => {
   return (
-    <div className="border-b">
+    <div
+      className="border-b fixed top-0 left-0 right-0 z-10 bg-white"
+      style={{ height: "100px" }}
+    >
       <div className="max-w-screen-xl px-4 mx-0 mx-auto">
         <div className="flex items-center justify-between pt-4 pb-2">
-          <div>
-            <Search />
-          </div>
+          <div>{/* <Search /> */}</div>
           <Link href="/">
             <div className="italic font-semibold cursor-pointer">
               Ecommerce.
             </div>
           </Link>
-          <div>
-            <Cart />
+          <div className="cursor-pointer">
+            <Cart onClick={onCartClick} />
           </div>
         </div>
         <div className="text-center">
           <ul>
-            <Link href="/products">
-              <li className="inline-block p-3 text-sm font-semibold cursor-pointer hover:text-blue-400">
-                {all.name}
-              </li>
-            </Link>
-            {rest.map(({ name }) => (
+            {NAV_ITEMS.map(({ name, value }) => (
               <Link
                 href="/category/[slug]"
-                as={`/category/${name.toLowerCase()}`}
+                as={`/category/${value.toLowerCase()}`}
               >
                 <li className="inline-block p-3 text-sm font-semibold cursor-pointer hover:text-blue-400">
                   {name}
