@@ -34,9 +34,11 @@ const Header = ({ onCartClick }) => {
                 href="/category/[slug]"
                 as={`/category/${value.toLowerCase()}`}
               >
-                <li className="inline-block p-3 text-sm font-semibold cursor-pointer hover:text-blue-400">
-                  {name}
-                </li>
+                <a>
+                  <li className="inline-block p-3 text-sm font-semibold cursor-pointer hover:text-blue-400">
+                    {name}
+                  </li>
+                </a>
               </Link>
             ))}
           </ul>

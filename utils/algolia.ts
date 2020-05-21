@@ -1,4 +1,4 @@
-import algoliasearch from "algoliasearch/lite";
+import algoliasearch from "algoliasearch";
 import fetch from "isomorphic-unfetch";
 
 export const algolia = algoliasearch(

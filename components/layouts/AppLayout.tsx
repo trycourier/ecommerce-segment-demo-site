@@ -6,16 +6,22 @@ import Button from "../Button";
 import { Slider } from "./Slider";
 import { useState } from "react";
 import { X } from "react-feather";
+import { useRouter } from "next/router";
 
 interface Props {
   children?: React.ReactNode;
 }
 
 const AppLayout = ({ children }: Props) => {
+  const router = useRouter();
   const [cart, setCart] = useRecoilState(cartState);
   const [open, setOpen] = useState(false);
 
   const cartArr = Object.keys(cart).map((key) => cart[key]);
+
+  const goToCheckout = () => {
+    router.push("/checkout");
+  };
 
   return (
     <div>
@@ -56,7 +62,9 @@ const AppLayout = ({ children }: Props) => {
             ))}
           </div>
           <div className="py-2 px-4">
-            <Button full>Checkout</Button>
+            <Button full onClick={goToCheckout}>
+              Checkout
+            </Button>
           </div>
         </div>
       </Slider>
