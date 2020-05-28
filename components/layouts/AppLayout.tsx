@@ -1,12 +1,14 @@
 import Header from "../Header";
 import { useRecoilState } from "recoil";
-import { cartState } from "../../utils/states";
+import { cartState, orderState } from "../../utils/states";
 import _ from "lodash";
 import Button from "../Button";
 import { Slider } from "./Slider";
 import { useState } from "react";
 import { X } from "react-feather";
 import { useRouter } from "next/router";
+import { getProduct } from "../../utils/track";
+import { nanoid } from "nanoid";
 
 interface Props {
   children?: React.ReactNode;
@@ -15,17 +17,31 @@ interface Props {
 const AppLayout = ({ children }: Props) => {
   const router = useRouter();
   const [cart, setCart] = useRecoilState(cartState);
+  const [order, setOrder] = useRecoilState(orderState);
   const [open, setOpen] = useState(false);
 
   const cartArr = Object.keys(cart).map((key) => cart[key]);
 
+  const onCartClick = () => {
+    const products = Object.values(cart).map((p) => getProduct(p));
+    window.analytics.track("Cart Viewed", { products });
+    setOpen(true);
+  };
+
   const goToCheckout = () => {
+    const order_id = nanoid();
+    const products = Object.values(cart).map((p) => getProduct(p));
+    const value = products.reduce((r, n) => r + n.price, 0);
+
+    const order = { order_id, products, value, currency: "usd" };
+    setOrder(order);
+    window.analytics.track("Checkout Started", order);
     router.push("/checkout");
   };
 
   return (
     <div>
-      <Header onCartClick={() => setOpen(true)} />
+      <Header onCartClick={onCartClick} />
       <div
         className="max-w-screen-xl mx-auto mx-0 px-4"
         style={{ marginTop: "100px" }}

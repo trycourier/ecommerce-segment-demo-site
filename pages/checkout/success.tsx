@@ -3,8 +3,22 @@ import Button from "../../components/Button";
 import { Input } from "../../components/Input";
 import { CheckCircle } from "react-feather";
 import randomstring from "randomstring";
+import { useEffect } from "react";
+import { orderState } from "../../utils/states";
+import { useRecoilState } from "recoil";
 
 const CheckoutPage = () => {
+  const [order, setOrder] = useRecoilState(orderState);
+
+  useEffect(() => {
+    window.analytics.track("Order Completed", {
+      checkout_id: order.order_id,
+      order_id: order.order_id,
+      total: order.value,
+      products: order.products,
+    });
+  }, []);
+
   return (
     <AppLayout>
       <div className="max-w-xl w-full mx-auto pt-24 flex items-center px-6 flex flex-col">

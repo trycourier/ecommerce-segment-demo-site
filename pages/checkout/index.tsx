@@ -2,8 +2,21 @@ import AppLayout from "../../components/layouts/AppLayout";
 import Button from "../../components/Button";
 import Link from "next/link";
 import { Input } from "../../components/Input";
+import { orderState } from "../../utils/states";
+import { useRecoilState } from "recoil";
+import Router from "next/router";
 
 const CheckoutPage = () => {
+  const [order, setOrder] = useRecoilState(orderState);
+
+  const onGuestClicked = () => {
+    window.analytics.track("Checkout Step Viewed", {
+      checkout_id: order.order_id,
+      step: 1,
+    });
+    Router.push("/checkout/guest");
+  };
+
   return (
     <AppLayout>
       <div className="max-w-4xl w-full mx-auto pt-24">
@@ -12,11 +25,9 @@ const CheckoutPage = () => {
             <h3 className="font-semibold text-sm uppercase mb-4">
               New customer?
             </h3>
-            <Link href="/checkout/guest">
-              <a>
-                <Button full>Checkout as Guest</Button>
-              </a>
-            </Link>
+            <a onClick={onGuestClicked}>
+              <Button full>Checkout as Guest</Button>
+            </a>
           </div>
           <div className="px-6">
             <h3 className="font-semibold text-sm uppercase mb-4">Login</h3>

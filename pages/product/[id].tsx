@@ -6,6 +6,7 @@ import { algolia } from "../../utils/algolia";
 import { useState, useEffect } from "react";
 import Button from "../../components/Button";
 import { cartState } from "../../utils/states";
+import { getProduct } from "../../utils/track";
 
 const CategoryPage = ({ product }) => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -20,6 +21,18 @@ const CategoryPage = ({ product }) => {
   const variants = _.get(product, "variantOptions", []).map((variant) =>
     _.get(variant, "images[0].url")
   );
+
+  useEffect(() => {
+    window.analytics.track("Product Viewed", getProduct(product));
+  }, []);
+
+  const buttonClick = (e) => {
+    window.analytics.track("Product Added", {
+      ...getProduct(product),
+      quantity: 1,
+    });
+    setCart({ ...cart, [idx]: product });
+  };
 
   return (
     <AppLayout>
@@ -45,9 +58,7 @@ const CategoryPage = ({ product }) => {
           <div className="text-4xl mb-3">
             {price !== undefined && `$${price.toFixed(2)}`}
           </div>
-          <Button onClick={() => setCart({ ...cart, [idx]: product })}>
-            Add to Bag - ${price}
-          </Button>
+          <Button onClick={buttonClick}>Add to Bag - ${price}</Button>
         </div>
       </div>
     </AppLayout>
