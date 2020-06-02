@@ -5,12 +5,20 @@ import { Input } from "../../components/Input";
 import { orderState } from "../../utils/states";
 import { useRecoilState } from "recoil";
 import Router from "next/router";
+import { useEffect } from "react";
 
 const CheckoutPage = () => {
   const [order, setOrder] = useRecoilState(orderState);
 
-  const onGuestClicked = () => {
+  useEffect(() => {
     window.analytics.track("Checkout Step Viewed", {
+      checkout_id: order.order_id,
+      step: 1,
+    });
+  }, [order?.order_id]);
+
+  const onGuestClicked = () => {
+    window.analytics.track("Checkout Step Completed", {
       checkout_id: order.order_id,
       step: 1,
     });

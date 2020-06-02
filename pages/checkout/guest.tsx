@@ -5,18 +5,26 @@ import Link from "next/link";
 import { orderState } from "../../utils/states";
 import { useRecoilState } from "recoil";
 import Router from "next/router";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 const CheckoutPage = () => {
   const emailRef: any = useRef({});
   const nameRef: any = useRef({});
   const [order, setOrder] = useRecoilState(orderState);
 
+  useEffect(() => {
+    window.analytics.track("Checkout Step Viewed", {
+      checkout_id: order.order_id,
+      step: 2,
+      payment_method: "Visa",
+    });
+  }, [order?.order_id]);
+
   const onCheckoutClick = () => {
     const email = emailRef.current?.value;
     const name = nameRef.current?.value;
     window.analytics.identify({ email, name });
-    window.analytics.track("Checkout Step Viewed", {
+    window.analytics.track("Checkout Step Completed", {
       checkout_id: order.order_id,
       step: 2,
       payment_method: "Visa",
