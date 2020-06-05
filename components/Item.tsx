@@ -7,7 +7,6 @@ import { getProduct } from "../utils/track";
 
 const Item = ({ idx, src, title, price = 10, item }) => {
   const [cart, setCart] = useRecoilState(cartState);
-  console.log("item", item);
 
   const productClicked = (e) => {
     e.preventDefault();

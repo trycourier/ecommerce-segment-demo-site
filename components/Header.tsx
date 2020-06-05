@@ -31,6 +31,7 @@ const Header = ({ onCartClick }) => {
           <ul>
             {NAV_ITEMS.map(({ name, value }) => (
               <Link
+                key={value}
                 href="/category/[slug]"
                 as={`/category/${value.toLowerCase()}`}
               >

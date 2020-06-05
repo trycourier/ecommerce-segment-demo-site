@@ -1,9 +1,10 @@
 import { algolia } from "../../utils/algolia";
 import { config } from "../../utils/config";
+import _ from "lodash";
 
-const getUser = async (email) => {
+const getUser = async (anonymous_id) => {
   const response = await fetch(
-    `https://profiles.segment.com/v1/spaces/${config.api.PERSONAS_SPACE_ID}/collections/users/profiles/email:${email}/traits`,
+    `https://profiles.segment.com/v1/spaces/${config.api.PERSONAS_SPACE_ID}/collections/users/profiles/anonymous_id:${anonymous_id}/traits`,
     {
       method: "GET",
       headers: {
@@ -14,7 +15,6 @@ const getUser = async (email) => {
     }
   );
   const user = await response.json();
-  // console.log(user);
   return user;
 };
 
@@ -24,24 +24,16 @@ export default async (req, res) => {
     return;
   }
 
-  const { requests, email } = req.body;
+  const { requests, anonID } = req.body;
 
   // API -> email -> Profile API -> Computed/SQL -> Optional Filters -> Algolia -> Personalized results
 
   // personalize
-  if (email) {
-    const user = await getUser(email);
+  const user = await getUser(anonID);
+  let { last_brand_viewed } = _.get(user, "traits", {});
 
-    let categories = user?.traits?.affinity_category || []; // ["Cell Phones", "Audio"]
-    // @TODO: delete later
-    if (process.env.NODE_ENV === "development") {
-      categories = ["Cell Phones", "Audio"];
-    }
-    // modify request with optional filters
-    requests[0].params.optionalFilters = categories.map(
-      (m) => `categories:${m}`
-    );
-  }
+  // modify request with optional filters
+  requests[0].params.optionalFilters = [`brand:${last_brand_viewed}`];
 
   const results = await algolia.search(requests);
   res.status(200).send(results);

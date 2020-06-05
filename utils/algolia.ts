@@ -8,6 +8,9 @@ export const algolia = algoliasearch(
 
 export const searchClient = {
   search(requests) {
+    let anonID = localStorage.ajs_anonymous_id;
+    anonID = anonID.substring(1, anonID.length - 1);
+
     return fetch("/api/search", {
       method: "post",
       headers: {
@@ -15,6 +18,7 @@ export const searchClient = {
       },
       body: JSON.stringify({
         requests,
+        anonID,
         // email: "strafe.x754@gmailx.com", // @TODO: comment this out
       }),
     }).then((res) => res.json());
