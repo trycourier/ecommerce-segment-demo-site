@@ -2,10 +2,9 @@ import classNames from "classnames";
 
 const Button = ({
   children,
-  bgColor = "black",
-  textColor = "white",
   inverse = false,
   full = false,
+  disabled = false,
   ...props
 }) => {
   return (
@@ -13,8 +12,10 @@ const Button = ({
       className={classNames(
         `rounded px-10 py-4 border text-md font-bold text-center cursor-pointer`,
         {
-          [`bg-black text-white border-black hover:bg-gray-900`]: !inverse,
-          [`bg-white text-black hover:bg-gray-100`]: inverse,
+          [`bg-gray-200 text-gray-600 hover:bg-gray-300`]: disabled,
+          [`bg-black text-white border-black hover:bg-gray-900`]:
+            !inverse && !disabled,
+          [`bg-white text-black hover:bg-gray-100`]: inverse && !disabled,
         },
         full && `w-full`
       )}

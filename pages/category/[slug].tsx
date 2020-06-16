@@ -1,6 +1,10 @@
 import AppLayout from "../../components/layouts/AppLayout";
 import { useRouter } from "next/router";
-import { InstantSearch, connectRefinementList } from "react-instantsearch-dom";
+import {
+  InstantSearch,
+  connectRefinementList,
+  Pagination,
+} from "react-instantsearch-dom";
 import { searchClient } from "../../utils/algolia";
 import { RefinementList, Hits } from "../../components/Hits";
 
@@ -25,6 +29,9 @@ const CategoryPage = () => {
         ))}
         <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
           <Hits />
+        </div>
+        <div className="py-8">
+          <Pagination />
         </div>
       </InstantSearch>
     </AppLayout>

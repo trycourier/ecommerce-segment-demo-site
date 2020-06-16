@@ -82,8 +82,10 @@ const Widget = () => {
           <tbody className="text-xs">
             {traitKeys.map((key) => (
               <tr>
-                <td className="p-1 font-semibold border">{key}</td>
-                <td className="p-1 border">{traits[key].toString()}</td>
+                <td className="p-1 font-semibold border break-words">{key}</td>
+                <td className="p-1 border break-words">
+                  {traits[key].toString()}
+                </td>
               </tr>
             ))}
           </tbody>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { getProduct } from "../utils/track";
 
-const Item = ({ idx, src, title, price = 10, item }) => {
+const Item = ({ idx, src, title, price = 10, item, inCart = false }) => {
   const [cart, setCart] = useRecoilState(cartState);
 
   const productClicked = (e) => {
@@ -17,11 +17,16 @@ const Item = ({ idx, src, title, price = 10, item }) => {
   const buttonClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    window.analytics.track("Product Added", {
-      ...getProduct(item),
-      quantity: 1,
-    });
-    setCart({ ...cart, [idx]: item });
+    const trackProp = { ...getProduct(item), quantity: 1 };
+    if (!inCart) {
+      window.analytics.track("Product Added", trackProp);
+      setCart({ ...cart, [idx]: item });
+    } else {
+      window.analytics.track("Product Removed", trackProp);
+      let cartClone = { ...cart };
+      delete cartClone[idx];
+      setCart(cartClone);
+    }
   };
 
   return (
@@ -36,8 +41,8 @@ const Item = ({ idx, src, title, price = 10, item }) => {
           </div>
           <div className="p-6">
             <h6 className="mb-4 font-semibold">{title}</h6>
-            <Button full inverse onClick={buttonClick}>
-              Add to Bag - ${price}
+            <Button full inverse disabled={inCart} onClick={buttonClick}>
+              {inCart ? `Remove from Cart` : `Add to Cart - ${price}`}
             </Button>
           </div>
         </div>

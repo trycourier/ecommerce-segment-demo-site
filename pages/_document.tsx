@@ -11,7 +11,7 @@ export default class extends Document {
 
   renderSnippet() {
     const opts = {
-      apiKey: config.api.ANALYTICS_WRITE_KEY
+      apiKey: config.api.ANALYTICS_WRITE_KEY,
     };
 
     return snippet.min(opts);
@@ -21,6 +21,12 @@ export default class extends Document {
     return (
       <html>
         <Head>
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css"
+            integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
+            crossOrigin="anonymous"
+          />
           {/* Inject the Segment snippet into the <head> of the document  */}
           <script dangerouslySetInnerHTML={{ __html: this.renderSnippet() }} />
         </Head>
