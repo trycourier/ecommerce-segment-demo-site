@@ -39,7 +39,7 @@ const IndexPage = () => {
       <CategorySection
         title="Or adidas?"
         category="shoes"
-        description="Impossible is nothing/"
+        description="Impossible is nothing"
         facets={{ brand: "adidas", type: "shoes" }}
       />
     </AppLayout>
