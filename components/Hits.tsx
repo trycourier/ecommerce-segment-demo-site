@@ -7,7 +7,6 @@ import { cartState } from "../utils/states";
 export const Hits = connectHits(({ hits }) => {
   const [cart] = useRecoilState(cartState);
   const objs = Object.keys(cart || {});
-  console.log("cart", cart);
 
   return hits.map((hit) => (
     <Item

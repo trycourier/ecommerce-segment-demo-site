@@ -21,17 +21,25 @@ const CategoryPage = ({ product }) => {
   const variants = _.get(product, "variantOptions", []).map((variant) =>
     _.get(variant, "images[0].url")
   );
+  const objs = Object.keys(cart || {});
+  const inCart = objs.includes(idx);
 
   useEffect(() => {
     window.analytics.track("Product Viewed", getProduct(product));
   }, []);
 
   const buttonClick = (e) => {
-    window.analytics.track("Product Added", {
-      ...getProduct(product),
-      quantity: 1,
-    });
-    setCart({ ...cart, [idx]: product });
+    const item = product;
+    const trackProp = { ...getProduct(item), quantity: 1 };
+    if (!inCart) {
+      window.analytics.track("Product Added", trackProp);
+      setCart({ ...cart, [idx]: item });
+    } else {
+      window.analytics.track("Product Removed", trackProp);
+      let cartClone = { ...cart };
+      delete cartClone[idx];
+      setCart(cartClone);
+    }
   };
 
   return (
@@ -58,7 +66,9 @@ const CategoryPage = ({ product }) => {
           <div className="text-4xl mb-3">
             {price !== undefined && `$${price.toFixed(2)}`}
           </div>
-          <Button onClick={buttonClick}>Add to Bag - ${price}</Button>
+          <Button disabled={inCart} onClick={buttonClick}>
+            {inCart ? `Remove from Cart` : `Add to Cart - ${price}`}
+          </Button>
         </div>
       </div>
     </AppLayout>
