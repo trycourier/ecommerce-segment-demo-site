@@ -1,3 +1,4 @@
+import fetch from "isomorphic-unfetch";
 import { config } from "../../utils/config";
 
 export const getUser = async (anonymous_id, type = "traits") => {
