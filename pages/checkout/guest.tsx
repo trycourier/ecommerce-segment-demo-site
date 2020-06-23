@@ -23,7 +23,9 @@ const CheckoutPage = () => {
   const onCheckoutClick = () => {
     const email = emailRef.current?.value;
     const name = nameRef.current?.value;
-    window.analytics.identify({ email, name });
+    if (!!email) {
+      window.analytics.identify(email, { email, name });
+    }
     window.analytics.track("Checkout Step Completed", {
       checkout_id: order.order_id,
       step: 2,
@@ -41,7 +43,9 @@ const CheckoutPage = () => {
   const onBack = () => {
     const email = emailRef.current?.value;
     const name = nameRef.current?.value;
-    window.analytics.identify({ email, name });
+    if (!!email) {
+      window.analytics.identify(email, { email, name });
+    }
     window.analytics.track("Cart Abandoned");
     Router.push("/");
   };
