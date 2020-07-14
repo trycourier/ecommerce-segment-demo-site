@@ -24,6 +24,7 @@ const CheckoutPage = () => {
     const email = emailRef.current?.value;
     const name = nameRef.current?.value;
     if (!!email) {
+      console.log("am i calling identify?");
       window.analytics.identify(email, { email, name });
     }
     window.analytics.track("Checkout Step Completed", {

@@ -14,11 +14,15 @@ export default async (req, res) => {
   // API -> email -> Profile API -> Computed/SQL -> Optional Filters -> Algolia -> Personalized results
 
   // personalize
-  const user = await getUser(anonID);
-  let { last_brand_viewed } = _.get(user, "traits", {});
+  if (!!anonID && anonID != "null") {
+    console.log("anonID: " + anonID);
+    const user = await getUser(anonID);
+    console.log(user);
+    let { last_brand_viewed } = _.get(user, "traits", {});
 
-  // modify request with optional filters
-  requests[0].params.optionalFilters = [`brand:${last_brand_viewed}`];
+    // modify request with optional filters
+    requests[0].params.optionalFilters = [`brand:${last_brand_viewed}`];
+  }
 
   const results = await algolia.search(requests);
   res.status(200).send(results);

@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import classNames from "classnames";
 import _ from "lodash";
 import { User } from "react-feather";
+import isImage from "is-image";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -42,9 +43,20 @@ const Widget = () => {
     setUser(user);
   }, 1000);
 
-  console.log("user", user);
+  const reset = () => {
+    const r = confirm("Are you sure?");
+    if (r == true) window.analytics.reset();
+  };
+
   const traits = _.get(user, "traits", {});
   const traitKeys = Object.keys(traits);
+
+  const renderTrait = (val) => {
+    if (isImage(val)) {
+      return <img src={val} style={{ width: "100px" }} />;
+    }
+    return val;
+  };
 
   return (
     <div
@@ -72,7 +84,7 @@ const Widget = () => {
         </button>
       </div>
       <div>
-        <table className="table-fixed w-full">
+        <table className="table-fixed w-full mb-4">
           <thead>
             <tr>
               <th className="w-1/2" />
@@ -84,12 +96,18 @@ const Widget = () => {
               <tr>
                 <td className="p-1 font-semibold border break-words">{key}</td>
                 <td className="p-1 border break-words">
-                  {traits[key].toString()}
+                  {renderTrait(traits[key].toString())}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <button
+          className="border rounded border-red-600 text-red-600 text-sm p-2"
+          onClick={reset}
+        >
+          clear profile
+        </button>
       </div>
       {/* <!-- toggler --> */}
       <div

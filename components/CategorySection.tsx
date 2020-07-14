@@ -16,7 +16,11 @@ const CategorySection = ({ facets = {}, category, title, description }) => {
         <InstantSearch searchClient={searchClient} indexName="dev_ecommerce">
           <Configure hitsPerPage={6} />
           {keys.map((key) => (
-            <RefinementList attribute={key} defaultRefinement={[facets[key]]} />
+            <RefinementList
+              key={key}
+              attribute={key}
+              defaultRefinement={[facets[key]]}
+            />
           ))}
           <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
             <Hits />
