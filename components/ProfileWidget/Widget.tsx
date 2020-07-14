@@ -51,8 +51,8 @@ const Widget = () => {
   const traits = _.get(user, "traits", {});
   const traitKeys = Object.keys(traits);
 
-  const renderTrait = (val) => {
-    if (isImage(val)) {
+  const renderTrait = (k, val) => {
+    if (isImage(val) || k.includes("image")) {
       return <img src={val} style={{ width: "100px" }} />;
     }
     return val;
@@ -96,7 +96,7 @@ const Widget = () => {
               <tr>
                 <td className="p-1 font-semibold border break-words">{key}</td>
                 <td className="p-1 border break-words">
-                  {renderTrait(traits[key].toString())}
+                  {renderTrait(key, traits[key].toString())}
                 </td>
               </tr>
             ))}
