@@ -52,10 +52,11 @@ const Widget = () => {
   const traitKeys = Object.keys(traits);
 
   const renderTrait = (k, val) => {
-    if (isImage(val) || k.includes("image")) {
+    if (!val) return;
+    if (val && (isImage(val) || k.includes("image"))) {
       return <img src={val} style={{ width: "100px" }} />;
     }
-    return val;
+    return val.toString();
   };
 
   return (
@@ -92,14 +93,19 @@ const Widget = () => {
             </tr>
           </thead>
           <tbody className="text-xs">
-            {traitKeys.map((key) => (
-              <tr>
-                <td className="p-1 font-semibold border break-words">{key}</td>
-                <td className="p-1 border break-words">
-                  {renderTrait(key, traits[key].toString())}
-                </td>
-              </tr>
-            ))}
+            {traitKeys.map(
+              (key) =>
+                traits[key] != undefined && (
+                  <tr>
+                    <td className="p-1 font-semibold border break-words">
+                      {key}
+                    </td>
+                    <td className="p-1 border break-words">
+                      {renderTrait(key, traits[key])}
+                    </td>
+                  </tr>
+                )
+            )}
           </tbody>
         </table>
         <button

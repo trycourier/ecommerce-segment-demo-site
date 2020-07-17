@@ -15,9 +15,7 @@ export default async (req, res) => {
 
   // personalize
   if (!!anonID && anonID != "null") {
-    console.log("anonID: " + anonID);
     const user = await getUser(anonID);
-    console.log(user);
     let { last_brand_viewed } = _.get(user, "traits", {});
 
     // modify request with optional filters
