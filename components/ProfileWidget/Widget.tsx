@@ -41,7 +41,7 @@ const Widget = () => {
     const profile = await res.json();
     const user = _.get(profile, "user", {});
     setUser(user);
-  }, 1000);
+  }, 2000);
 
   const reset = () => {
     const r = confirm("Are you sure?");
