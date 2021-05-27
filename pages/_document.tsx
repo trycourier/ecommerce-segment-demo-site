@@ -29,7 +29,7 @@ export default class extends Document {
           />
           {/* Inject the Segment snippet into the <head> of the document  */}
           <script dangerouslySetInnerHTML={{ __html: this.renderSnippet() }} />
-          /* Adding script for Facebook Domain Verification */
+          {/* Adding script for Facebook Domain Verification */}
           <meta name="facebook-domain-verification" content="kaju4u95ehd917vrerj2in1vp2csq7" />
         </Head>
         <body>
