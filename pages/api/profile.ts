@@ -3,7 +3,7 @@ import { config } from "../../utils/config";
 
 export const getUser = async (anonymous_id, type = "traits") => {
   const response = await fetch(
-    `https://profiles.segment.com/v1/spaces/${config.api.PERSONAS_SPACE_ID}/collections/users/profiles/anonymous_id:${anonymous_id}/${type}`,
+    `https://profiles.segment.com/v1/spaces/${config.api.PERSONAS_SPACE_ID}/collections/users/profiles/anonymous_id:${anonymous_id}/${type}?limit=200&class=computed_trait`,
     {
       method: "GET",
       headers: {
