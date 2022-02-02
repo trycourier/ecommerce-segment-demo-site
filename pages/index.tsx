@@ -31,16 +31,16 @@ const IndexPage = () => {
         </div>
       </div>
       <CategorySection
-        title="Nike?"
+        title="Recommended for you"
         category="shoes"
-        description="Just do it."
+        description="Check out these shoes!"
         facets={{ brand: "Nike", type: "shoes" }}
       />
       <CategorySection
-        title="Or adidas?"
-        category="shoes"
-        description="Impossible is nothing"
-        facets={{ brand: "adidas", type: "shoes" }}
+        title="Recommended for you"
+        category="clothing"
+        description="Latest clothing for you"
+        facets={{ brand: "adidas", type: "clothing" }}
       />
     </AppLayout>
   );
