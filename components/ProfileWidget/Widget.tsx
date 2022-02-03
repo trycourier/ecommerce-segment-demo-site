@@ -48,6 +48,19 @@ const Widget = () => {
     if (r == true) window.analytics.reset();
   };
 
+  const update = async () => {
+    let anonID = localStorage.ajs_anonymous_id;
+    anonID = anonID.substring(1, anonID.length - 1);
+    const res = await fetch("/api/profile", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ anonID }),
+    });
+    const profile = await res.json();
+    const user = _.get(profile, "user", {});
+    setUser(user);
+  };
+
   const traits = _.get(user, "traits", {});
   const traitKeys = Object.keys(traits);
 
@@ -108,12 +121,25 @@ const Widget = () => {
             )}
           </tbody>
         </table>
-        <button
-          className="border rounded border-red-600 text-red-600 text-sm p-2"
-          onClick={reset}
-        >
-          clear profile
-        </button>
+
+        <div className="flex space-x-4">
+          <div className="m-2">
+            <button
+              className="border rounded border-red-600 text-red-600 text-sm p-2"
+              onClick={reset}
+            >
+              clear profile
+            </button>            
+          </div>
+          <div className="m-2">
+            <button
+              className="border rounded border-green-600 text-green-600 text-sm p-2"
+              onClick={update}
+            >
+              update
+            </button>            
+          </div>
+        </div>        
       </div>
       {/* <!-- toggler --> */}
       <div
