@@ -109,7 +109,7 @@ const Widget = () => {
             {traitKeys.map(
               (key) =>
                 traits[key] != undefined && (
-                  <tr>
+                  <tr key={key}>
                     <td className="p-1 font-semibold border break-words">
                       {key}
                     </td>

@@ -25,7 +25,7 @@ const CategoryPage = () => {
       </h1>
       <InstantSearch searchClient={searchClient} indexName="dev_ecommerce">
         {keys.map((key) => (
-          <RefinementList attribute={key} defaultRefinement={[refines[key]]} />
+          <RefinementList key={key} attribute={key} defaultRefinement={[refines[key]]} />
         ))}
         <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
           <Hits />

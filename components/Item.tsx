@@ -5,7 +5,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { getProduct } from "../utils/track";
 
-const Item = ({ idx, src, title, price = 10, item, inCart = false }) => {
+const Item = ({ idx, src, title, price = 10, item, inCart = false, brand }) => {
   const [cart, setCart] = useRecoilState(cartState);
 
   const productClicked = (e) => {
@@ -30,7 +30,7 @@ const Item = ({ idx, src, title, price = 10, item, inCart = false }) => {
   };
 
   return (
-    <Link href="/product/[id]" as={`/product/${idx}`}>
+    <Link key={idx} href="/product/[id]" as={`/product/${idx}`}>
       <a className="cursor-pointer" onClick={(e) => productClicked(e)}>
         <div className="overflow-hidden bg-gray-100 rounded">
           <div className="relative w-full" style={{ paddingTop: `100%` }}>
@@ -40,9 +40,11 @@ const Item = ({ idx, src, title, price = 10, item, inCart = false }) => {
             />
           </div>
           <div className="p-6">
-            <h6 className="mb-4 font-semibold">{title}</h6>
+            <h6 className="mb-1 font-bold">{title}</h6>
+            <h6 className="mb-1 font-semibold">{brand}</h6>
+            <h6 className="mb-4">{`$${price.toFixed(2)}`}</h6>
             <Button full inverse disabled={inCart} onClick={buttonClick}>
-              {inCart ? `Remove from Cart` : `Add to Cart - ${price}`}
+              {inCart ? `Remove from Cart` : `Add to Cart`}
             </Button>
           </div>
         </div>

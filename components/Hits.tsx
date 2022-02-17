@@ -10,12 +10,14 @@ export const Hits = connectHits(({ hits }) => {
 
   return hits.map((hit) => (
     <Item
+      key={hit.objectID}
       idx={hit.objectID}
       title={hit.name}
       price={hit.price.value}
       src={_.get(hit, "images[0].url")}
       item={hit}
       inCart={objs.includes(hit.objectID)}
+      brand={hit.brand}
     />
   ));
 });
