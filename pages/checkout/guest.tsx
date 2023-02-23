@@ -15,6 +15,7 @@ const CheckoutPage = () => {
   useEffect(() => {
     window.analytics.track("Checkout Step Viewed", {
       checkout_id: order.order_id,
+      user_id: "CourierTest",
       step: 2,
       payment_method: "Visa",
     });
@@ -28,6 +29,7 @@ const CheckoutPage = () => {
     }
     window.analytics.track("Checkout Step Completed", {
       checkout_id: order.order_id,
+      user_id: "CourierTest",
       step: 2,
       payment_method: "Visa",
     });
