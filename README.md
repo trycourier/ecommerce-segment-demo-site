@@ -1,4 +1,4 @@
-# ecommerce Website
+# E-commerce Demo Website with Segment
 
 This is a website generator that you can use as a Segment source for demos, training, testing, or however else you see fit.
 
@@ -9,6 +9,7 @@ In `config.json`, update `ANALYTICS_WRITE_KEY` with your Segment write key then 
 To run a production ready build
 
 ```
+npm install
 npm run build
 npm start
 ```
