@@ -12,6 +12,10 @@ Router.events.on("routeChangeComplete", (url) => {
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
+    //identify Courier user
+    if (typeof window !== 'undefined') {
+      window.analytics.identify("CourierTest", { user_id: "CourierTest"});
+    }
     return (
       <ProfileWidget>
         <RecoilRoot>

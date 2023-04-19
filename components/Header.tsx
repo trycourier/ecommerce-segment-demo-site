@@ -1,6 +1,10 @@
 import { Search } from "react-feather";
 import Link from "next/link";
 import Cart from "./Cart";
+// import Courier Inbox
+import { config } from "../utils/config";
+import { CourierProvider } from "@trycourier/react-provider";
+import { Inbox } from "@trycourier/react-inbox";
 
 const NAV_ITEMS = [
   { name: "Shop All", value: "all" },
@@ -24,6 +28,9 @@ const Header = ({ onCartClick }) => {
             </div>
           </Link>
           <div className="cursor-pointer">
+            <CourierProvider userId="CourierTest" clientKey={config.api.COURIER_CLIENT_KEY}>
+              <Inbox />
+            </CourierProvider>
             <Cart onClick={onCartClick} />
           </div>
         </div>
