@@ -2,6 +2,7 @@
   "api": {
     "PERSONAS_API_KEY": "",
     "PERSONAS_SPACE_ID": "",
-    "ANALYTICS_WRITE_KEY": ""
+    "ANALYTICS_WRITE_KEY": "o1wZ0BuYYp3LMaYZRorv2HFlqDZKvoIf",
+    "COURIER_CLIENT_KEY": "NTg4YzRiNDgtN2JhOS00YjZjLTk1ZGUtNmRjNjMwMjc5YWRl"
   }
 }

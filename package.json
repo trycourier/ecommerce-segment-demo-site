@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@segment/snippet": "^4.4.0",
+    "@trycourier/react-inbox": "^3.3.0",
+    "@trycourier/react-provider": "^3.3.0",
     "algoliasearch": "^4.2.0",
     "autoprefixer": "^9.7.4",
     "classnames": "^2.2.6",
