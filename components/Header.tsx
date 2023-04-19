@@ -5,6 +5,7 @@ import Cart from "./Cart";
 import { config } from "../utils/config";
 import { CourierProvider } from "@trycourier/react-provider";
 import { Inbox } from "@trycourier/react-inbox";
+import { Toast } from "@trycourier/react-toast";
 
 const NAV_ITEMS = [
   { name: "Shop All", value: "all" },
@@ -30,6 +31,7 @@ const Header = ({ onCartClick }) => {
           <div className="cursor-pointer">
             <CourierProvider userId="CourierTest" clientKey={config.api.COURIER_CLIENT_KEY}>
               <Inbox />
+              <Toast />
             </CourierProvider>
             <Cart onClick={onCartClick} />
           </div>
